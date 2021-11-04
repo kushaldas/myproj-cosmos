@@ -4,6 +4,8 @@ cmd_hostname=""
 cmd_do_bootstrap="no"
 cmd_fqdn=""
 
+set -x
+set -e
 set -- $(getopt b?h?n: "$@")
 
 while [ $# -gt 0 ]; do
@@ -33,7 +35,7 @@ fi
 
 test -f cosmos.conf && . ./cosmos.conf
 
-defrepo=`git remote -v | grep ${remote:="ro"} | grep fetch | awk '{print $2}'`
+defrepo=`git remote -v | grep ${remote:="^ro"} | grep fetch | awk '{print $2}'`
 rrepo=${repo:="$defrepo"}
 rtag=${tag:="changeme"}
 
